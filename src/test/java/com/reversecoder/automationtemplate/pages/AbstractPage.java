@@ -20,26 +20,20 @@ import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.internal.Coordinates;
 import org.openqa.selenium.internal.Locatable;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import com.reversecoder.automationtemplate.test.BaseTest.BROWSER;
-import com.reversecoder.automationtemplate.test.BaseTest.DEVICE;
+import com.reversecoder.automationtemplate.test.BaseTest.ENVIRONMENT_WINDOWS;
 import com.reversecoder.automationtemplate.test.BaseTest.OS;
-import com.reversecoder.automationtemplate.test.BaseTest.TEST;
 import com.reversecoder.automationtemplate.util.DtoFactory;
 import com.reversecoder.automationtemplate.util.PropertyLoader;
 
 public abstract class AbstractPage<W extends AbstractPage> {
 
     protected WebDriver driverW;
-
-    @FindBy(xpath = "//*[@id='add-device-screen']/div[2]/div[2]/input")
-    public WebElement buttonSkip;
 
     /**
      * Constructor injecting the WebDriver interface
@@ -60,9 +54,9 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Checks if is element present.
      *
-     * @param element
+     * @param element The webelement.
      * @return true, if is element present, otherwise return false.
-     * @throws Exception
+     * @throws Exception Exception Throws exception if any error occurs.
      */
     public boolean isElementPresent(WebElement element) throws Exception {
         try {
@@ -79,6 +73,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @param element The webelement.
      * @throws Exception Return exceptions if any error occurs.
      * @return W The instance of this page.
+     * @throws Exception Exception Throws exception if any error occurs.
      */
     public W clickCheckBox(WebElement element) throws Exception {
         JavascriptExecutor js = (JavascriptExecutor) driverW;
@@ -90,15 +85,15 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Checks if is element selected.
      *
-     * @param element
+     * @param element The webelement.
      * @return true, if is element selected, otherwise return false.
-     * @throws Exception
+     * @throws Exception Exception Throws exception if any error occurs.
      */
     public boolean isWebElementSelected(WebElement element) throws Exception {
         try {
             if (element.isSelected()) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (Exception e) {
@@ -109,15 +104,16 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Checks if is element displayed.
      *
-     * @param element
+     * @param element The webelement.
      * @return true, if is element displayed, otherwise return false.
-     * @throws Exception
+     * @throws Exception Exception Throws exception if any error occurs.
      */
     public boolean isElementDisplayed(WebElement element) throws Exception {
         try {
-            if (waitForElement(element, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec"))).isDisplayed()) {
+            if (waitForElement(element, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec")))
+                    .isDisplayed()) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (Exception e) {
@@ -128,9 +124,9 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Dynamically checks if is element displayed.
      *
-     * @param element
+     * @param element The webelement.
      * @return true, if is element displayed, otherwise return false.
-     * @throws Exception
+     * @throws Exception Exception Throws exception if any error occurs.
      */
     public boolean dynamicWaitUntilElementFound(WebElement element) throws Exception {
         try {
@@ -138,9 +134,9 @@ public abstract class AbstractPage<W extends AbstractPage> {
                 Thread.sleep(1000);
             }
             Thread.sleep(3000);
-            if(element.isDisplayed()){
+            if (element.isDisplayed()) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (Exception e) {
@@ -153,14 +149,14 @@ public abstract class AbstractPage<W extends AbstractPage> {
      *
      * @param element The webelement.
      * @return true, if is element displayed, otherwise return false.
-     * @throws Exception
+     * @throws Exception Exception Throws exception if any error occurs.
      */
     public boolean dynamicWaitForSpecificTime(WebElement element) throws Exception {
         try {
             if (waitForElement(element, Integer.valueOf("40")).isDisplayed()) {
                 Thread.sleep(2000);
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (Exception e) {
@@ -207,15 +203,16 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Checks if is element enabled.
      *
-     * @param element
+     * @param element The web element.
      * @return true, if is element enabled, otherwise return false.
-     * @throws Exception
+     * @exception Throws execption if any error occurs.
      */
     public boolean isElementEnabled(WebElement element) throws Exception {
         try {
-            if (waitForElement(element, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec"))).isEnabled()) {
+            if (waitForElement(element, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec")))
+                    .isEnabled()) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (Exception e) {
@@ -226,16 +223,17 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Match element text.
      *
-     * @param element
-     * @param text
+     * @param element The web element.
+     * @param text the element text.
      * @return true, if is element text matched, otherwise return false.
-     * @throws Exception
+     * @exception Throws execption if any error occurs.
      */
-    public boolean isElementTextMatched(WebElement element,String text) throws Exception {
+    public boolean isElementTextMatched(WebElement element, String text) throws Exception {
         try {
-            if(waitForElement(element, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec"))).getText().equals(text)){
+            if (waitForElement(element, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec"))).getText()
+                    .equals(text)) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (NoSuchElementException e) {
@@ -246,16 +244,17 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Check element text.
      *
-     * @param element
-     * @param text
+     * @param element The web element.
+     * @param text the element text.
      * @return true, if is element text contain, otherwise return false.
-     * @throws Exception
+     * @exception Throws execption if any error occurs.
      */
-    public boolean isElementTextContains(WebElement element,String text) throws Exception {
+    public boolean isElementTextContains(WebElement element, String text) throws Exception {
         try {
-            if(waitForElement(element, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec"))).getText().contains(text)){
+            if (waitForElement(element, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec"))).getText()
+                    .contains(text)) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         } catch (NoSuchElementException e) {
@@ -266,12 +265,12 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * waits for element to be present.
      *
-     * @param element
-     * @param timeOut
-     *            The timeout in seconds when an expectation is called
-     * @return
+     * @param element The web element.
+     * @param timeOut The timeout in seconds when an expectation is called
+     * @return WebElement The web element.
+     * @exception Throws execption if any error occurs.
      */
-    public WebElement waitForElement(WebElement element, int timeOut) {
+    public WebElement waitForElement(WebElement element, int timeOut) throws Exception {
         WebDriverWait wait = new WebDriverWait(driverW, timeOut);
         wait.until(ExpectedConditions.elementToBeClickable(element));
         return element;
@@ -282,27 +281,30 @@ public abstract class AbstractPage<W extends AbstractPage> {
      *
      * @param xPath The xpath of web element.
      * @return boolean Returns true if element exist otherwise false.
+     * @exception Throws execption if any error occurs.
      */
-    public boolean isElementExist(String xPath) {
+    public boolean isElementExist(String xPath) throws Exception {
         return driverW.findElements(By.xpath(xPath)).size() > 0;
     }
 
     /**
      * Standard/Generic input field web element value clearing & setting
      *
-     * @param field
-     * @param value
-     * @return generic page W
+     * @param field The web element.
+     * @param value The value to be input.
+     * @return generic page W.
+     * @exception Throws execption if any error occurs.
      */
     public W fillInputField(WebElement field, String value) throws Exception {
         waitForElement(field, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec")));
-        if (isBrowserType(BROWSER.IEXPLORER)) {
+        if (isEnvironmentType(ENVIRONMENT_WINDOWS.IEXPLORER)) {
             while (!field.getAttribute("value").equalsIgnoreCase("")) {
                 field.sendKeys("\u0008");
             }
         } else {
             field.clear();
         }
+        sleep(1000);
         field.sendKeys(value);
         sleep(1000);
         return (W) this;
@@ -380,8 +382,9 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Standard/Generic select web element creation
      *
-     * @param field
-     * @return Select web element
+     * @param field The webelement.
+     * @return Select web element.
+     * @exception Throws exception if any error occurs.
      */
     public Select createSelectElement(WebElement field) throws Exception {
         waitForElement(field, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec")));
@@ -391,8 +394,9 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Standard/Generic button/link web element click operation
      *
-     * @param field
-     * @return generic page W
+     * @param field The webelement.
+     * @return generic page W.
+     * @exception Throws exception if any error occurs.
      */
     public W performClick(WebElement field) throws Exception {
         return performClick(field, null);
@@ -402,9 +406,10 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * Standard/Generic button/link web element click operation with wait for
      * additional web element
      *
-     * @param clickingField
-     * @param waitForField
-     * @return generic page W
+     * @param clickingField The webelement.
+     * @param waitForField The webelement.
+     * @return generic page W.
+     * @exception Throws exception if any error occurs.
      */
     public W performClick(WebElement clickingField, WebElement waitForField) throws Exception {
         waitForElement(clickingField, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec")));
@@ -419,9 +424,10 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Standard/Generic web element finding for another web element
      *
-     * @param field
-     * @param xPath
-     * @return WebElement
+     * @param field The webelement.
+     * @param xPath The xPath.
+     * @return List<WebElement> The list of the list item.
+     * @exception Throws exception if any error occurs.
      */
     public WebElement findSubWebElementByXPath(WebElement field, String xPath) throws Exception {
         return field.findElement(By.xpath(xPath));
@@ -430,9 +436,10 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Standard/Generic web element finding for another web element
      *
-     * @param field
-     * @param tagName
-     * @return List<WebElement>
+     * @param field The webelement.
+     * @param tagName The tagName.
+     * @return List<WebElement> The list of the list item.
+     * @exception Throws exception if any error occurs.
      */
     public List<WebElement> findSubWebElementListByTagName(WebElement field, String tagName) throws Exception {
         return field.findElements(By.tagName(tagName));
@@ -444,6 +451,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @param field The webelement.
      * @param xPath The xpath.
      * @return List<WebElement> The list of the list item.
+     * @exception Throws exception if any error occurs.
      */
     public List<WebElement> findSubWebElementListByXpath(WebElement field, String xPath) throws Exception {
         return driverW.findElements(By.xpath(xPath));
@@ -452,18 +460,19 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Standard/Generic get text method from a web element
      *
-     * @param field
-     * @return String
+     * @param field The webelement.
+     * @return String The text of webelement.
+     * @exception Throws exception if any error occurs.
      */
     public String getTextFromWebElement(WebElement field) throws Exception {
         return waitForElement(field, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec"))).getText();
     }
 
     /**
-     * Set Thread Sleep
+     * Set Thread Sleep.
      *
-     * @return this
-     * @throws InterruptedException
+     * @return W The generic page.
+     * @exception Throws exception if any error occurs.
      */
 
     public W sleep(int milisecond) throws Exception {
@@ -474,8 +483,8 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * get current date from the system
      *
-     * @param format
-     * @return
+     * @param format the format.
+     * @exception Throws exception if any error occurs.
      */
     public String getSysCurrentDate(String format) {
         Date currentDate = new Date();
@@ -490,8 +499,9 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @param format1 is like thus "MMM dd".
      * @param format2 is like thus "MMM dd, yyyy".
      * @return string The current week.
+     * @exception Throws exception if any error occurs.
      */
-    public String getSysCurrentWeek(String format1, String fromat2) {
+    public String getSysCurrentWeek(String format1, String fromat2) throws Exception {
         String week = "";
 
         Calendar c = Calendar.getInstance();
@@ -508,23 +518,22 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * Get value of iFrame.
      *
      * @param element The webelement.
-     *
      * @return String The iFrame value.
-     *
+     * @exception Throws exception if any error occurs.
      */
-    public String getIframeText(WebElement element){
+    public String getIframeText(WebElement element) throws Exception {
         return element.getAttribute("src");
     }
 
     /**
      * Get attribute value of any element
-     * @param element The webelement
-     * @param attrName The attribute name
      *
-     * @return Attribute value of the webelement
-     *
+     * @param element The webelement.
+     * @param attrName The attribute name.
+     * @return Attribute value of the webelement.
+     * @exception Throws exception if any error occurs.
      */
-    public String getAttribute(WebElement element, String attrName){
+    public String getAttribute(WebElement element, String attrName) throws Exception {
         return element.getAttribute(attrName);
     }
 
@@ -533,15 +542,14 @@ public abstract class AbstractPage<W extends AbstractPage> {
      *
      * @param element The webelement.
      * @param attrName The attribute name.
-     *
      * @return boolean Returns true if attribute is found otherwise false.
-     *
+     * @exception Throws exception if any error occurs.
      */
-    public boolean isAttributeExist(WebElement element, String attrName) {
+    public boolean isAttributeExist(WebElement element, String attrName) throws Exception {
         Boolean result = false;
         try {
             String value = element.getAttribute(attrName);
-            if (value != null){
+            if (value != null) {
                 result = true;
             }
         } catch (Exception e) {
@@ -552,74 +560,68 @@ public abstract class AbstractPage<W extends AbstractPage> {
 
     /**
      * Get placeholder value of input field
+     *
      * @param element The webelement
-     *
-     * @return Placeholder value of the input field
-     *
+     * @return Placeholder value of the input field.
+     * @exception Throws exception if any error occurs.
      */
-    public String getInputFieldPlaceHolderText(WebElement element){
+    public String getInputFieldPlaceHolderText(WebElement element) throws Exception {
         return element.getAttribute("placeholder");
     }
 
     /**
      * Get input value of input field
-     * @param element The webelement
      *
-     * @return Input value of the input field
+     * @param element The webelement.
+     * @return Input value of the input field.
+     * @exception Throws exception if any error occurs.
      *
      */
-    public String getInputFieldText(WebElement element){
+    public String getInputFieldText(WebElement element) throws Exception {
         return element.getAttribute("value");
     }
 
     /**
      * Check if input field has placeholder
      *
-     * @param element The webelement
-     *
-     * @return boolean Return true if input filed has placeholder, otherwise return false
+     * @param element The webelement.
+     * @return boolean Return true if input filed has placeholder, otherwise return false.
+     * @exception Throws exception if any error occurs.
      */
-    public boolean isInputFieldPlaceHolderExist(WebElement element){
-        if(!getInputFieldPlaceHolderText(element).equalsIgnoreCase("")&&getInputFieldText(element).equalsIgnoreCase("")){
+    public boolean isInputFieldPlaceHolderExist(WebElement element) throws Exception {
+        if (!getInputFieldPlaceHolderText(element).equalsIgnoreCase("")
+                && getInputFieldText(element).equalsIgnoreCase("")) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
-
-     /* Check if a WebElement is displayed.
-      *
-      * @param element The webelement.
-      *
-      * @return boolean Return true if the webelement is displayed, otherwise false.
-      */
-      public boolean isWebElementDisplayed(WebElement element) {
-        return element.isDisplayed();
-      }
 
     /**
      * Check if input field has placeholder
      *
-     * @param element The webelement
-     * @param placeholder The placeholder text
-     *
-     * @return boolean Return true if input filed has placeholder, otherwise return false
+     * @param element The webelement.
+     * @param placeholder The placeholder text.
+     * @return boolean Return true if input filed has placeholder, otherwise return false.
+     * @exception Throws exception if any error occurs.
      */
-    public boolean isInputFieldPlaceHolderExist(WebElement element, String placeholder){
-        if(!getInputFieldPlaceHolderText(element).equalsIgnoreCase("")&&getInputFieldText(element).equalsIgnoreCase("")
-                &&getInputFieldPlaceHolderText(element).equalsIgnoreCase(placeholder)){
+    public boolean isInputFieldPlaceHolderExist(WebElement element, String placeholder) throws Exception {
+        if (!getInputFieldPlaceHolderText(element).equalsIgnoreCase("")
+                && getInputFieldText(element).equalsIgnoreCase("")
+                && getInputFieldPlaceHolderText(element).equalsIgnoreCase(placeholder)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     /**
-     * clear any input field. Note: element.clear() is not supported for Internet Explorer browser.
+     * clear any input field. Note: element.clear() is not supported for
+     * Internet Explorer browser.
      *
-     * @param element The webelement
-     * @return W The generic page
-     * @exception Throws exception if any error occurs
+     * @param element The webelement.
+     * @return W The generic page.
+     * @exception Throws exception if any error occurs.
      */
     public W clearInputField(WebElement element) throws Exception {
         while (!element.getAttribute("value").equalsIgnoreCase("")) {
@@ -635,7 +637,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @param backspaceButton The webelement that clear input field.
      * @return W The generic page.
      */
-    public W clearInputField(WebElement inputElement, WebElement backspaceButton) throws Exception{
+    public W clearInputField(WebElement inputElement, WebElement backspaceButton) throws Exception {
         while (!inputElement.getAttribute("value").equalsIgnoreCase("")) {
             performClickByJavaScript(backspaceButton).sleep(1000);
         }
@@ -662,24 +664,24 @@ public abstract class AbstractPage<W extends AbstractPage> {
      *
      * @param driver The webdriver
      * @param element The webelement
-     *
-     * @return boolean Return true if the webelement has the focus, otherwise false
+     * @return boolean Return true if the webelement has the focus, otherwisefalse
      */
-    public boolean isWebElementFocused(WebDriver driver,WebElement element) {
-        if(element.equals(driver.switchTo().activeElement())){
+    public boolean isWebElementFocused(WebDriver driver, WebElement element) {
+        if (element.equals(driver.switchTo().activeElement())) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
+
     /**
      * Check if a WebElement is enable
      *
-     * @param element The webelement
-     *
-     * @return boolean Return true if the webelement is enable, otherwise false
-    */
-    public boolean isWebElementEnabled(WebElement element) {
+     * @param element The webelement.
+     * @return boolean Return true if the webelement is enable, otherwise false.
+     * @throws Exception Returns exception if any error occurs.
+     */
+    public boolean isWebElementEnabled(WebElement element) throws Exception {
         return element.isEnabled();
     }
 
@@ -689,15 +691,13 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @param driver The webdriver
      * @param X The X coordinate
      * @param Y The Y coordinate
-     *
      * @return W The instance of this class.
-     *
-     * @throws Exception
+     * @throws Exception Returns exception if any error occurs.
      */
     public W clickAtCoordinate(WebDriver driver, int X, int Y) throws Exception {
-        if(isBrowserType(BROWSER.SAFARI)){
-        }else if(isDeviceType(DEVICE.IOS)){
-        }else{
+        if (isEnvironmentType(ENVIRONMENT_WINDOWS.SAFARI)) {
+        } else if (isOsType(OS.IOS)) {
+        } else {
             Actions builder = new Actions(driver);
             builder.moveByOffset(X, Y).click().build().perform();
         }
@@ -714,12 +714,11 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Get co-ordinate of webelement
      *
-     * @param Webelement
-     *
+     * @param element The web element.
      * @return co-ordinates(as String)
-     *
+     * @throws Exception Returns exception if any error occurs.
      */
-    public String getCoOrdinate(WebElement element) {
+    public String getCoOrdinate(WebElement element) throws Exception {
         Point point = element.getLocation();
         int xcord = point.getX();
         int ycord = point.getY();
@@ -730,9 +729,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * Scroll page down to the specific element.
      *
      * @param element The web element.
-     *
      * @return W The instance of this class.
-     *
      * @throws Exception Returns exception if any error occurs.
      */
     public W scrollPageTopToDown(WebElement element) throws Exception {
@@ -745,9 +742,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * Scroll page Up to the specific element.
      *
      * @param element The web element
-     *
      * @return W The instance of this class.
-     *
      * @throws Exception Returns exception if any error occurs.
      */
     public W scrollPageDownToTop(WebElement element) throws Exception {
@@ -761,9 +756,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * Scroll page right to left
      *
      * @param element The web element
-     *
      * @return W The instance of this class.
-     *
      * @throws Exception Returns exception if any error occurs.
      */
     public W scrollPageRightToLeft(WebElement element) throws Exception {
@@ -810,10 +803,10 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Drag wait and drop
      *
-     * @param dragFrom
-     * @param dragTo
-     * @return
-     * @throws Exception
+     * @param dragFrom The webelement of drag from.
+     * @param dragTo The webelement of drag to.
+     * @return W The instance of the generic class.
+     * @exception Exception Throws exceptions if any error occurs.
      */
     public W dragWaitAndDrop(WebElement dragFrom, WebElement dragTo) throws Exception {
         Actions builder = new Actions(driverW);
@@ -849,7 +842,8 @@ public abstract class AbstractPage<W extends AbstractPage> {
     }
 
     /**
-     * Get previous date from current date. please make sure that the given date and the date format are aligned.
+     * Get previous date from current date. please make sure that the given date
+     * and the date format are aligned.
      *
      * @param dateFormat The desire date format.
      * @param currentDate The current date.
@@ -859,12 +853,13 @@ public abstract class AbstractPage<W extends AbstractPage> {
     public String getPreviousDateFromCurrentDate(String dateFormat, String currentDate) throws Exception {
         SimpleDateFormat dateFomater = new SimpleDateFormat(dateFormat);
         Date myDate = dateFomater.parse(currentDate);
-        Date previousDate= new Date(System.currentTimeMillis()-24*60*60*1000);
+        Date previousDate = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
         return dateFomater.format(previousDate);
     }
 
     /**
-     * Get next date from current date. please make sure that the given date and the date format are aligned.
+     * Get next date from current date. please make sure that the given date and
+     * the date format are aligned.
      *
      * @param dateFormat The desire date format.
      * @return String The previous date of current date.
@@ -872,7 +867,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
      */
     public String getNextDateFromCurrentDate(String dateFormat) throws Exception {
         SimpleDateFormat dateFomater = new SimpleDateFormat(dateFormat);
-        Date previousDate= new Date(System.currentTimeMillis()+24*60*60*1000);
+        Date previousDate = new Date(System.currentTimeMillis() + 24 * 60 * 60 * 1000);
         return dateFomater.format(previousDate);
     }
 
@@ -884,15 +879,15 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @return String The previous Month.
      * @throws Exception Throws exception if any error occurs.
      */
-    public String getPrevMonth(String  curDate,String curdateDateFormat)throws Exception {
-    Date currentDate = new Date();
-          final Calendar calendar = Calendar.getInstance();
-          calendar.setTime(currentDate);
-          calendar.add(Calendar.MONTH, -1);
-          SimpleDateFormat dateFormat = new SimpleDateFormat(curdateDateFormat);
-          String formatDate = dateFormat.format(calendar.getTime());
-          return formatDate;
-        }
+    public String getPrevMonth(String curDate, String curdateDateFormat) throws Exception {
+        Date currentDate = new Date();
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.MONTH, -1);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(curdateDateFormat);
+        String formatDate = dateFormat.format(calendar.getTime());
+        return formatDate;
+    }
 
     /**
      * Get previous Year.
@@ -902,24 +897,22 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @return String The previous Year.
      * @throws Exception Throws exception if any error occurs.
      */
-    public String getPrevYear(String  curDate,String curdateDateFormat)throws Exception {
-    Date currentDate = new Date();
-          final Calendar calendar = Calendar.getInstance();
-          calendar.setTime(currentDate);
-          calendar.add(Calendar.DAY_OF_YEAR, -1);
-          SimpleDateFormat dateFormat = new SimpleDateFormat(curdateDateFormat);
-          String formatDate = dateFormat.format(calendar.getTime());
-          return formatDate;
-        }
+    public String getPrevYear(String curDate, String curdateDateFormat) throws Exception {
+        Date currentDate = new Date();
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        calendar.add(Calendar.DAY_OF_YEAR, -1);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(curdateDateFormat);
+        String formatDate = dateFormat.format(calendar.getTime());
+        return formatDate;
+    }
 
     /**
      * swipe left to right
      *
-     * @param
-     *
+     * @param element The webelement.
      * @return W The instance of this class.
-     *
-     * @throws Exception
+     * @exception Exception Throws exceptions if any error occurs.
      */
     public W swipeLeftToRight(WebElement element) throws Exception {
         Actions builder = new Actions(driverW);
@@ -930,11 +923,9 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * swipe right to left
      *
-     * @param
-     *
+     * @param element The webelement.
      * @return W The instance of this class.
-     *
-     * @throws Exception
+     * @exception Exception Throws exceptions if any error occurs.
      */
     public W swipeRightToLeft(WebElement element) throws Exception {
         Actions builder = new Actions(driverW);
@@ -978,7 +969,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @exception Exception Throws exceptions if any error occurs.
      */
     public W performDoubleClick(WebElement element) throws Exception {
-        for(int i=0;i<=1;i++){
+        for (int i = 0; i <= 1; i++) {
             performClick(element);
             sleep(1000);
         }
@@ -1007,12 +998,12 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @exception Exception Throws exceptions if any error occurs.
      */
     public W performClickByCss(String css) throws Exception {
-        while(true){
-            try{
+        while (true) {
+            try {
                 driverW.findElement(By.cssSelector(css)).click();
                 sleep(1000);
                 break;
-            }catch (Throwable e){
+            } catch (Throwable e) {
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e1) {
@@ -1031,12 +1022,12 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @exception Exception Throws exceptions if any error occurs.
      */
     public W performClickUntilFound(WebElement element) throws Exception {
-        while(true){
-            try{
+        while (true) {
+            try {
                 element.click();
                 sleep(1000);
                 break;
-            }catch (Throwable e){
+            } catch (Throwable e) {
                 try {
                     sleep(1000);
                     System.out.println("Attemped to click");
@@ -1091,7 +1082,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @return WebElement The web element.
      */
     public WebElement getWebElementByXpath(String xPath) {
-        WebElement element=driverW.findElement(By.xpath(xPath));
+        WebElement element = driverW.findElement(By.xpath(xPath));
         return element;
     }
 
@@ -1102,8 +1093,8 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @return WebElement The web element.
      */
     public WebElement getWebElementByText(String text) {
-        String xPath="//div[contains(text(),'"+text+"')]";
-        WebElement element=driverW.findElement(By.xpath(xPath));
+        String xPath = "//div[contains(text(),'" + text + "')]";
+        WebElement element = driverW.findElement(By.xpath(xPath));
         return element;
     }
 
@@ -1122,13 +1113,14 @@ public abstract class AbstractPage<W extends AbstractPage> {
     }
 
     /**
-     * This method is used for hiding keyboard on smartphone. Here a blank click is used at an arbitary coordinate for hiding keyboard.
+     * This method is used for hiding keyboard on smartphone. Here a blank click
+     * is used at an arbitary coordinate for hiding keyboard.
      *
      * @throws Exception Throws exception if any error occurs.
      */
-    public void clickOutSideForHidingKeyboard() throws Exception{
+    public void clickOutSideForHidingKeyboard() throws Exception {
         String type = PropertyLoader.loadProperty("testType");
-        if(type.equalsIgnoreCase("MOBILE")){
+        if (type.equalsIgnoreCase("MOBILE")) {
             clickAtCoordinate(driverW, 10, 100).sleep(1000);
         }
     }
@@ -1139,8 +1131,8 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @return boolean Returns true if the letters are in lower case, otherwise return false.
      * @throws Exception Throws exception if any error occurs.
      */
-    public boolean isInLowerCase(String input) throws Exception{
-        String regex = "^(?=.*?[\\p{L}&&[^\\p{Lu}]])(?=.*?\\d).*$" ;
+    public boolean isInLowerCase(String input) throws Exception {
+        String regex = "^(?=.*?[\\p{L}&&[^\\p{Lu}]])(?=.*?\\d).*$";
         return input.matches(regex);
     }
 
@@ -1151,9 +1143,10 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @param inputDateFormat The input date format.
      * @param outputDateFormat The output date format.
      * @return String reformated date.
+     * @throws Exception Throws exception if any error occurs.
      */
-    public String convertDate(String inputDate, String inputDateFormat, String outputDateFormat){
-        String reformattedStr="";
+    public String convertDate(String inputDate, String inputDateFormat, String outputDateFormat) throws Exception {
+        String reformattedStr = "";
         try {
             SimpleDateFormat inputFormat = new SimpleDateFormat(inputDateFormat);
             SimpleDateFormat outputFormat = new SimpleDateFormat(outputDateFormat);
@@ -1174,7 +1167,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
     public ArrayList<String> getAllListItemsText(WebElement list) throws Exception {
         waitForElement(list, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec")));
 
-        ArrayList<String> allItems=new ArrayList<>();
+        ArrayList<String> allItems = new ArrayList<>();
         List<WebElement> rows = list.findElements(By.tagName("li"));
         for (WebElement row : rows) {
             allItems.add(row.getText());
@@ -1219,7 +1212,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
         }
         if (!found) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -1231,7 +1224,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @return WebElement The webelement of the search item.
      * @throws Exception Throws exception if any error occurs.
      */
-    public WebElement getWebElementOfListItem(WebElement list,String itemName) throws Exception {
+    public WebElement getWebElementOfListItem(WebElement list, String itemName) throws Exception {
         waitForElement(list, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec")));
 
         List<WebElement> rows = list.findElements(By.tagName("li"));
@@ -1250,35 +1243,24 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @return WebElement The webelement of the search item.
      * @throws Exception Throws exception if any error occurs.
      */
-    public boolean performClickOnListItem(WebElement list,String itemName) throws Exception {
+    public boolean performClickOnListItem(WebElement list, String itemName) throws Exception {
         waitForElement(list, Integer.valueOf(PropertyLoader.loadProperty("implicit_timeout_sec")));
 
         boolean found = false;
         List<WebElement> rows = list.findElements(By.tagName("li"));
         for (WebElement row : rows) {
             if (StringUtils.contains(row.getText(), itemName)) {
-                found=true;
+                found = true;
                 performClickByJavaScript(row).sleep(1000);
                 break;
             }
         }
 
         if (!found) {
-          return false;
-      }else{
-          return true;
-      }
-    }
-
-    /**
-     * Skip Add device screen.
-     *
-     * @return W The instance of current page.
-     * @throws Exception Throws exceptions if any error occurs.
-     */
-    public W skipAddDeviceScreen() throws Exception {
-        performClick(buttonSkip).sleep(1000);
-        return (W) this;
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
@@ -1291,7 +1273,7 @@ public abstract class AbstractPage<W extends AbstractPage> {
         String testType = PropertyLoader.loadProperty("testType");
         if (testType.equalsIgnoreCase("WEBVIEW")) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -1306,8 +1288,8 @@ public abstract class AbstractPage<W extends AbstractPage> {
     public ArrayList<Integer> getDigitsOfAnyNumber(int number) throws Exception {
         ArrayList<Integer> digits = new ArrayList<Integer>();
 
-        while(number>0){
-            int d = number /10;
+        while (number > 0) {
+            int d = number / 10;
             int k = number - d * 10;
             number = d;
             digits.add(k);
@@ -1334,53 +1316,21 @@ public abstract class AbstractPage<W extends AbstractPage> {
         return result;
     }
 
-	/**
-	 * find the given element
-	 *
-	 * @param element
-	 * @return
-	 * @throws Exception
-	 */
-	public boolean findGivenElement(WebElement element) throws Exception {
-		try {
-			if (element.isDisplayed()) {
-				return true;
-			} else {
-				return false;
-			}
-		} catch (Exception e) {
-			return false;
-		}
-	}
-
     /**
-     * Check the browser type.
+     * find the given element.
      *
-     * @param browser it may be FIREFOX, CHROME, IEXPLORER, SAFARI.
-     * @return boolean Returns true if it is BROWSER otherwise returns false.
+     * @param element The expected webelement.
+     * @return boolean Returns true if element found otherwise returns false.
      * @throws Exception Throws exceptions if any error occurs.
      */
-    public boolean isBrowserType(BROWSER browser) throws Exception {
-        String browsertype=PropertyLoader.loadProperty("browserType");
-        if(browser.toString().toLowerCase().equals(browsertype.toLowerCase())){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    /**
-     * Check the test type.
-     *
-     * @param test it may be DESKTOP, WEB, WEBVIEW.
-     * @return boolean Returns true if it is TEST otherwise returns false.
-     * @throws Exception Throws exceptions if any error occurs.
-     */
-    public boolean isTestType(TEST test) throws Exception {
-        String testtype=PropertyLoader.loadProperty("testType");
-        if(test.toString().toLowerCase().equals(testtype.toLowerCase())){
-            return true;
-        }else{
+    public boolean findGivenElement(WebElement element) throws Exception {
+        try {
+            if (element.isDisplayed()) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
             return false;
         }
     }
@@ -1388,15 +1338,15 @@ public abstract class AbstractPage<W extends AbstractPage> {
     /**
      * Check the device type.
      *
-     * @param device it may be ANDROID, IOS.
-     * @return boolean Returns true if it is DEVICE otherwise returns false.
+     * @param os type of os.
+     * @return boolean Returns true if it is OS otherwise returns false.
      * @throws Exception Throws exceptions if any error occurs.
      */
-    public boolean isDeviceType(DEVICE device) throws Exception {
-        String devicetype=PropertyLoader.loadProperty("deviceType");
-        if(device.toString().toLowerCase().equals(devicetype.toLowerCase())){
+    public boolean isOsType(OS os) throws Exception {
+        String ostype = PropertyLoader.loadProperty("osType");
+        if (os.toString().toLowerCase().equals(ostype.toLowerCase())) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -1408,11 +1358,11 @@ public abstract class AbstractPage<W extends AbstractPage> {
      * @return boolean Returns true if it is OS otherwise returns false.
      * @throws Exception Throws exceptions if any error occurs.
      */
-    public boolean isOsType(OS os) throws Exception {
-        String ostype=PropertyLoader.loadProperty("osType");
-        if(os.toString().toLowerCase().equals(ostype.toLowerCase())){
+    public boolean isEnvironmentType(ENVIRONMENT_WINDOWS environment) throws Exception {
+        String environmentType = PropertyLoader.loadProperty("environmentType");
+        if (environment.toString().toLowerCase().equals(environmentType.toLowerCase())) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
