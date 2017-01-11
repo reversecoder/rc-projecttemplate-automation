@@ -43,11 +43,11 @@ public class BaseTest {
     }
 
     public enum ENVIRONMENT_LINUX {
-        ANDROID_NATIVE
+        CHROME, FIREFOX
     }
 
     public enum ENVIRONMENT_MAC {
-        FIREFOX, CHROME, SAFARI
+        CHROME, FIREFOX, SAFARI
     }
 
     public enum ENVIRONMENT_ANDROID {

@@ -7,7 +7,7 @@
 	<test name='AndroidPageTest'>
 	    <groups>
 			<run>
-				<include name="browser_mobile" />
+				<include name="browser_desktop" />
 			</run>
 		</groups>
 		<classes>
