@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="Automation Template Test" verbose="10">
-	<listeners>
-		<listener class-name="org.imaginea.jenkins.plugins.testinprogress.testng.TestNGProgressRunListener" />
-		<listener class-name="com.reversecoder.automationtemplate.listener.ReporterListener" />
-	</listeners>
-	<test name='AndroidPageTest'>
-	    <groups>
-			<run>
-				<include name="browser_desktop" />
-			</run>
-		</groups>
-		<classes>
-			<class name='com.reversecoder.automationtemplate.test.AndroidPageTest' />
-		</classes>
-	</test>
+    <listeners>
+        <listener
+            class-name="org.imaginea.jenkins.plugins.testinprogress.testng.TestNGProgressRunListener" />
+        <listener
+            class-name="com.reversecoder.automationtemplate.listener.ReporterListener" />
+    </listeners>
+    <test name='AndroidPageTest'>
+        <groups>
+            <run>
+                <include name="browser_desktop" />
+            </run>
+        </groups>
+        <classes>
+            <class name='com.reversecoder.automationtemplate.test.AndroidPageTest' />
+        </classes>
+    </test>
 </suite>
