@@ -8,6 +8,10 @@ import com.reversecoder.automationtemplate.pages.AndroidPage;
 import com.reversecoder.automationtemplate.util.DataParameters;
 import com.reversecoder.automationtemplate.util.PropertyLoader;
 
+/**
+ * @author Md. Rashsadul Alam
+ *
+ */
 public class AndroidPageTest extends BaseTest {
     private AndroidPage androidPage;
 

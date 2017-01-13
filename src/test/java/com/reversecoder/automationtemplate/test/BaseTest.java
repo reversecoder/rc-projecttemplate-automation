@@ -29,6 +29,10 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
+/**
+ * @author Md. Rashsadul Alam
+ *
+ */
 public class BaseTest {
 
     public static WebDriver driverWeb;

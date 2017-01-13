@@ -31,6 +31,10 @@ import com.reversecoder.automationtemplate.test.BaseTest.OS;
 import com.reversecoder.automationtemplate.util.DtoFactory;
 import com.reversecoder.automationtemplate.util.PropertyLoader;
 
+/**
+ * @author Md. Rashsadul Alam
+ *
+ */
 public abstract class AbstractPage<W extends AbstractPage> {
 
     protected WebDriver driverW;

@@ -11,6 +11,10 @@ import com.reversecoder.automationtemplate.dto.Dto;
 import com.reversecoder.automationtemplate.dto.data.UserDto;
 import com.reversecoder.automationtemplate.util.CSVHandler.ResourceType;
 
+/**
+ * @author Md. Rashsadul Alam
+ *
+ */
 public class DataParameters {
 
     private static Iterator<UserDto[]> getUserByTC(String id) {

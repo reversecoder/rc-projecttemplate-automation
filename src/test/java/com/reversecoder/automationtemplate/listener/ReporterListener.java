@@ -11,53 +11,58 @@ import org.testng.ISuite;
 import org.testng.ISuiteResult;
 import org.testng.ITestContext;
 
+/**
+ * @author Md. Rashsadul Alam
+ *
+ */
 public class ReporterListener implements IReporter {
- @Override
- public void generateReport(List xmlSuites, List suites, String outputDirectory) {
 
-  int passCount = 0;
-  int failCount = 0;
-  int skipCount = 0;
-  int totalCount = 0;
+    @Override
+    public void generateReport(List xmlSuites, List suites, String outputDirectory) {
 
-  for (Object s : suites) {
-   ISuite suite = (ISuite) s;
-   Map<String, ISuiteResult> tests = suite.getResults();
-   for (String testClass : tests.keySet()) {
-    int pCnt = 0;
-    int fCnt = 0;
-    int sCnt = 0;
+        int passCount = 0;
+        int failCount = 0;
+        int skipCount = 0;
+        int totalCount = 0;
 
-    ISuiteResult suiteResult = tests.get(testClass);
-    ITestContext testContext = suiteResult.getTestContext();
+        for (Object s : suites) {
+            ISuite suite = (ISuite) s;
+            Map<String, ISuiteResult> tests = suite.getResults();
+            for (String testClass : tests.keySet()) {
+                int pCnt = 0;
+                int fCnt = 0;
+                int sCnt = 0;
 
-    pCnt = testContext.getPassedTests().size();
-    fCnt = testContext.getFailedTests().size();
-    sCnt = testContext.getSkippedTests().size();
+                ISuiteResult suiteResult = tests.get(testClass);
+                ITestContext testContext = suiteResult.getTestContext();
 
-    passCount = passCount + pCnt;
-    failCount = failCount + fCnt;
-    skipCount = skipCount + sCnt;
-   }
-  }
+                pCnt = testContext.getPassedTests().size();
+                fCnt = testContext.getFailedTests().size();
+                sCnt = testContext.getSkippedTests().size();
 
-  totalCount = passCount + failCount + skipCount;
+                passCount = passCount + pCnt;
+                failCount = failCount + fCnt;
+                skipCount = skipCount + sCnt;
+            }
+        }
 
-  String SummeryResult = "Total = " + totalCount + "\r\n" + "Passed = " + passCount + "\r\n" + "Failed = "
-    + failCount + "\r\n" + "Skipped = " + skipCount + "\r\n";
+        totalCount = passCount + failCount + skipCount;
 
-  try {
-   File file = new File("target/surefire-reports/summeryResult.txt");
+        String SummeryResult = "Total = " + totalCount + "\r\n" + "Passed = " + passCount + "\r\n" + "Failed = "
+                + failCount + "\r\n" + "Skipped = " + skipCount + "\r\n";
 
-   if (!file.exists()) {
-    file.createNewFile();
-   }
+        try {
+            File file = new File("target/surefire-reports/summeryResult.txt");
 
-   FileWriter fw = new FileWriter(file.getAbsoluteFile());
-   BufferedWriter bw = new BufferedWriter(fw);
-   bw.write(SummeryResult);
-   bw.close();
-  } catch (Exception e) {
-  }
- }
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(SummeryResult);
+            bw.close();
+        } catch (Exception e) {
+        }
+    }
 }
